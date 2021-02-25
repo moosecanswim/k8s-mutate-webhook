@@ -35,7 +35,7 @@ kubectl delete csr ${CSR_NAME} || :
 echo "... creating kubernetes CSR object"
 echo "kubectl create -f -"
 kubectl create -f - <<EOF
-apiVersion: certificates.k8s.io/v1beta1
+apiVersion: certificates.k8s.io/v1
 kind: CertificateSigningRequest
 metadata:
   name: ${CSR_NAME}
@@ -43,6 +43,7 @@ spec:
   groups:
   - system:authenticated
   request: $(cat ${APP}.csr | base64 | tr -d '\n')
+  signerName: kubernetes.io/kube-apiserver-client
   usages:
   - digital signature
   - key encipherment
