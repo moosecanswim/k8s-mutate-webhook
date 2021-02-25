@@ -62,6 +62,19 @@ func Mutate(body []byte, verbose bool) ([]byte, error) {
 		// parse the []map into JSON
 		resp.Patch, err = json.Marshal(p)
 
+		// The following would take the place of the above
+		// This is the patch that adds in a sidecar (assuming the above works)
+		// THIS IS WHERE THE SIDECAR JSON GOES- will need to build out the ability to get a label and use it as xds_cluster
+
+		// p2 := []map[string]string{}
+		// patch2 := map[string]string{
+		// 	"op":     "merge",
+		// 	"path":   "/spec/containers",
+		// 	"value:": "d",
+		// }
+		// resp.Patch, err = json.Marshal(patch2)
+		// p2 = append(p2, patch2)
+
 		// Success, of course ;)
 		resp.Result = &metav1.Status{
 			Status: "Success",
